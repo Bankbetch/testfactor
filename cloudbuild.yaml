@@ -1,22 +1,19 @@
 steps:
-  - name: gcr.io/cloud-builders/docker
-    args:
-      ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
+  # - name: gcr.io/cloud-builders/docker
+  #   args:
+  #     ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
 
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
+  # - name: "gcr.io/cloud-builders/docker"
+  #   args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
-  - name: "gcr.io/cloud-builders/gcloud"
+  - name: "gcr.io/cloud-builders/check_key"
     entrypoint: /bin/bash
     args: ["-c", "chmod 400 ./cloud_bundle_install.sh"]
 
   - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: /bin/bash
     args:
-      [
-        "bash",
-        "./cloud_bundle_install.sh",
-        "ssh ${_SERVER} && docker-compose up -d",
-      ]
+      ["./cloud_bundle_install.sh", "ssh ${_SERVER} && docker-compose up -d"]
     # args:
     #   [
     #     "run",
