@@ -1,14 +1,19 @@
 steps:
-  # - name: gcr.io/cloud-builders/docker
-  #   args:
-  #     ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
+  - name: gcr.io/cloud-builders/docker
+    args:
+      ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
 
-  # - name: "gcr.io/cloud-builders/docker"
-  #   args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
   - name: "gcr.io/cloud-builders/check_key"
     entrypoint: /bin/bash
-    args: ["-c", "chmod 400 ./cloud_bundle_install.sh"]
+    args:
+      [
+        "-c",
+        "chmod 400 ./cloud_bundle_install.sh",
+        "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y)",
+      ]
 
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: /bin/bash
