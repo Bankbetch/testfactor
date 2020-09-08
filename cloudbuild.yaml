@@ -7,10 +7,16 @@ steps:
     args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
   - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: /bin/bash
     args: ["-c", "chmod 400 ./cloud_bundle_install.sh"]
 
   - name: "gcr.io/cloud-builders/gcloud"
-    args: ["bash", "./cloud_bundle_install.sh", "ssh ${_SERVER} && docker-compose up -d"]
+    args:
+      [
+        "bash",
+        "./cloud_bundle_install.sh",
+        "ssh ${_SERVER} && docker-compose up -d",
+      ]
     # args:
     #   [
     #     "run",
