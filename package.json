@@ -13,6 +13,9 @@
     "@factor/plugin-storage-s3": "^1.0.0",
     "@factor/theme-zeno": "^1.8.26"
   },
+  "scripts": {
+    "start": "yarn factor serve"
+  },
   "factor": {
     "app": {
       "name": "Betch Blog",
