@@ -1,0 +1,22 @@
+version: "3.6"
+services:
+  backend:
+    image: factor
+    container_name: testFactor
+    ports:
+      - 3000:3000
+    environment:
+      # VIRTUAL_HOST: url
+      VIRTUAL_PORT: 3000
+      # LETSENCRYPT_HOST: url
+#     networks:
+#       - webproxy
+#       - default
+
+# networks:
+#   webproxy:
+#     external:
+#       name: webproxy
+#   default:
+#     external:
+#       name: factor
